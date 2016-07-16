@@ -3,6 +3,10 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Sign in</string>
 
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -19,4 +23,13 @@
     <string name="login_with_google_plus">Login with Google +</string>
     <string name="g_plus">G+</string>
     <string name="do_this_leter">do this later</string>
+    <!--Draver Navigation-->
+    <string name="news_string">News</string>
+    <string name="schedule_string">Schedule</string>
+    <string name="spekers_string">Spekers</string>
+    <string name="share_string">Share</string>
+    <string name="logout">Logout</string>
+    <string name="invite_string">Invite</string>
+
+
 </resources>

@@ -22,6 +22,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import devfest.controller.model.User;
 import devfest.controller.utils.FB;
 
 /**
@@ -79,6 +80,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
+
 
         }
     }
@@ -141,7 +143,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
 
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -155,11 +157,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
 
+
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(LoginActivity.this, "Authentication done with G+.",
                                     Toast.LENGTH_SHORT).show();
+                            User user = new User(acct.getDisplayName(), acct.getPhotoUrl().toString());
+                            user.setEmailWithoutDots(acct.getEmail());
+                            fb.getUserRef().child(user.getEmail()).setValue(user);
                             startMainActivity();
                         }
 

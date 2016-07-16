@@ -9,6 +9,8 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import devfest.controller.utils.FB;
+
 /**
  * Created by Brusd on 7/16/2016.
  */
@@ -16,11 +18,12 @@ import com.google.firebase.auth.FirebaseUser;
 public class BaseActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener {
 
     public FirebaseUser user;
+    private FB fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        fb = FB.getInstance();
     }
 
     @Override
