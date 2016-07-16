@@ -1,29 +1,86 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+
+
+    productFlavors {
+        DevFestUA2016 {
+            applicationId = "devfest2016.gdg"
+            versionCode 1
+            versionName "0.01"
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def file = file(name)
+                    output.outputFile = new File(file.parent, name + "-" + versionName + ".apk")
+                }
+            }
+        }
+    }
 
     defaultConfig {
-        applicationId "devfest.controller"
+        applicationId "devfest2016.gdg"
         minSdkVersion 19
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 24
+
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    signingConfigs {
+        config {
+            keyAlias 'Boost'
+            keyPassword 'ONLY_FOR_DEVELOPMENT'
+            storeFile file('ONLY_FOR_DEVELOPMENT.jks')
+            storePassword 'ONLY_FOR_DEVELOPMENT'
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    wearApp project(':wear')
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.google.firebase:firebase-core:9.2.1'
+    compile 'com.google.firebase:firebase-crash:9.2.1'
+    compile 'com.google.firebase:firebase-auth:9.2.1'
+    compile 'com.google.android.gms:play-services-auth:9.2.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.google.android.gms:play-services:8.4.0'
-    compile 'com.android.support:design:23.1.1'
 }
+
+
+
+
+
+apply plugin: 'com.google.gms.google-services'
