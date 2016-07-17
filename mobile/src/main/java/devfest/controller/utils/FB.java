@@ -41,6 +41,10 @@ public class FB {
     public DatabaseReference getNewsRef() {
         return database.getReference(BASE_URL + Constant.NEWS);
     }
+    public DatabaseReference getSpeakersRef() {
+        return database.getReference(BASE_URL + Constant.SPEAKERS);
+    }
+
     public StorageReference getImageRoot(){
         return storageRef;
     }

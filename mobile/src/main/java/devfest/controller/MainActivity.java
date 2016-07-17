@@ -82,11 +82,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         int id = item.getItemId();
 
         if (id == R.id.nav_schedule) {
-//            addFragment(ScheduleFragment.newInstance());
+            addFragment(ScheduleFragment.newInstance());
         } else if (id == R.id.blog_category) {
             addFragment(NewsFragment.newInstance());
         } else if (id == R.id.nav_speakers) {
-//            addFragment(SpeakersFragment.newInstance());
+            addFragment(SpeakersFragment.newInstance());
         } else if (id == R.id.nav_share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");

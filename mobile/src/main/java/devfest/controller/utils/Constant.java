@@ -7,4 +7,5 @@ public class Constant {
 
     public static final String USER = "USER";
     public static final String NEWS = "blog";
+    public static final String SPEAKERS = "speakers";
 }

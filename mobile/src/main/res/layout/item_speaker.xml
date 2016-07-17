@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/main_speakers_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="centerCrop" />
+
+
+                <TextView
+                    android:id="@+id/speakers_company_country_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/main_speakers_image"
+                    android:layout_below="@id/news_title_text_view"
+                    android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:text="123123"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/speakers_name_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/speakers_company_country_text_view"
+                    android:layout_below="@id/main_new_image"
+                    android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/speakers_title_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="25sp" />
+
+
+            <TextView
+                android:id="@+id/speakers_bio_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
