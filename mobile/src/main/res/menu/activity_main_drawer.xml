@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@android:drawable/ic_secure"
+            android:title="@string/schedule_string" />
+        <item
+            android:id="@+id/blog_category"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:title="@string/blog_string" />
+
+        <item
+            android:id="@+id/nav_speakers"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="@string/speakers_string" />
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="@string/share_string" />
+            <item
+                android:id="@+id/nav_invite"
+                android:icon="@android:drawable/ic_menu_manage"
+                android:title="@string/invite_string" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@android:drawable/ic_lock_lock"
+                android:title="@string/logout" />
+        </menu>
+    </item>
+
+</menu>
