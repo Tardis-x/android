@@ -5,7 +5,7 @@
 
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
-
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -24,9 +24,10 @@
     <string name="g_plus">G+</string>
     <string name="do_this_leter">do this later</string>
     <!--Draver Navigation-->
-    <string name="news_string">News</string>
+    <string name="blog_string">Blog</string>
+
     <string name="schedule_string">Schedule</string>
-    <string name="spekers_string">Spekers</string>
+    <string name="speakers_string">Speakers</string>
     <string name="share_string">Share</string>
     <string name="logout">Logout</string>
     <string name="invite_string">Invite</string>

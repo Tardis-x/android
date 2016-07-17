@@ -1,6 +1,7 @@
 package devfest.controller;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import devfest.controller.fragments.NewsFragment;
+import devfest.controller.fragments.ScheduleFragment;
+import devfest.controller.fragments.SpeakersFragment;
 import devfest.controller.utils.FB;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,6 +42,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appBar_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.app_name));
+        setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -50,8 +55,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentManager = getSupportFragmentManager();
-
-
         addFragment(NewsFragment.newInstance());
 
     }
@@ -59,7 +62,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void addFragment(Fragment newFragment) {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_holder, newFragment).commit();
+        ft.replace(R.id.fragment_holder, newFragment).commit();
     }
 
     @Override
@@ -78,16 +81,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_category) {
-
-
-//        } else if (id == R.id.nav_Channel) {
-//            setUpFragment(ChannelFragment.newInstance());
-//        } else if (id == R.id.nav_program) {
-//            setUpFragment(TVProgramFragment.newInstance());
-//        } else if (id == R.id.nav_manage) {
-//            setUpFragment(CategoryFragment.newInstance());
-//        } else if (id == R.id.nav_share) {
+        if (id == R.id.nav_schedule) {
+//            addFragment(ScheduleFragment.newInstance());
+        } else if (id == R.id.blog_category) {
+            addFragment(NewsFragment.newInstance());
+        } else if (id == R.id.nav_speakers) {
+//            addFragment(SpeakersFragment.newInstance());
+        } else if (id == R.id.nav_share) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=devfest2016.gdg");
+            startActivity(Intent.createChooser(intent, "Share with"));
+        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
             fb.mAuth.signOut();

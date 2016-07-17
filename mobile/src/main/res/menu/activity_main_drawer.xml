@@ -8,14 +8,14 @@
             android:icon="@android:drawable/ic_secure"
             android:title="@string/schedule_string" />
         <item
-            android:id="@+id/nav_category"
+            android:id="@+id/blog_category"
             android:icon="@android:drawable/ic_dialog_info"
-            android:title="@string/news_string" />
+            android:title="@string/blog_string" />
 
         <item
-            android:id="@+id/nav_spekers"
+            android:id="@+id/nav_speakers"
             android:icon="@android:drawable/ic_dialog_dialer"
-            android:title="@string/spekers_string" />
+            android:title="@string/speakers_string" />
 
     </group>
 
