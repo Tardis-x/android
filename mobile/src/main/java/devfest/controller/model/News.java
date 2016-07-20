@@ -1,10 +1,13 @@
 package devfest.controller.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Brusd on 7/17/2016.
  */
 
-public class News {
+public class News implements Parcelable {
 
     public String id;
     public String title;
@@ -95,4 +98,43 @@ public class News {
         this.secondaryColor = secondaryColor;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.image);
+        dest.writeString(this.posted);
+        dest.writeString(this.brief);
+        dest.writeString(this.fullText);
+        dest.writeString(this.primaryColor);
+        dest.writeString(this.secondaryColor);
+    }
+
+    protected News(Parcel in) {
+        this.id = in.readString();
+        this.title = in.readString();
+        this.image = in.readString();
+        this.posted = in.readString();
+        this.brief = in.readString();
+        this.fullText = in.readString();
+        this.primaryColor = in.readString();
+        this.secondaryColor = in.readString();
+    }
+
+    public static final Parcelable.Creator<News> CREATOR = new Parcelable.Creator<News>() {
+        @Override
+        public News createFromParcel(Parcel source) {
+            return new News(source);
+        }
+
+        @Override
+        public News[] newArray(int size) {
+            return new News[size];
+        }
+    };
 }

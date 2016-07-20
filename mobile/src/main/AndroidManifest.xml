@@ -30,7 +30,11 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".SpeakerActivity"
+            android:label="@string/title_activity_speaker"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

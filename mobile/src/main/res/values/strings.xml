@@ -31,6 +31,7 @@
     <string name="share_string">Share</string>
     <string name="logout">Logout</string>
     <string name="invite_string">Invite</string>
+    <string name="title_activity_speaker">SpeakerActivity</string>
 
 
 </resources>

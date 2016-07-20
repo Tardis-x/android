@@ -1,6 +1,7 @@
 package devfest.controller.adaptors;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -85,6 +86,18 @@ public class NewsAdaptor  extends RecyclerView.Adapter<NewsAdaptor.ViewHolder> {
             });
         }
 
+        holder.mMaineNewsImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        holder.mNewsTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         holder.mNewsTitle.setBackgroundColor(Color.parseColor(news.getPrimaryColor()));
 //        holder.cardView.setBackgroundColor(Color.parseColor(news.getSecondaryColor()));
 

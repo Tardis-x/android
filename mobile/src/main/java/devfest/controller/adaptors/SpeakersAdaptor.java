@@ -1,5 +1,6 @@
 package devfest.controller.adaptors;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -18,7 +19,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
+import devfest.controller.BaseActivity;
 import devfest.controller.R;
+import devfest.controller.SpeakerActivity;
 import devfest.controller.model.Speaker;
 import devfest.controller.utils.FB;
 
@@ -28,13 +31,15 @@ import devfest.controller.utils.FB;
 
 public class SpeakersAdaptor extends RecyclerView.Adapter<SpeakersAdaptor.ViewHolder> {
     private ArrayList<Speaker> mDataset;
-    private Context mContext;
+    private BaseActivity mContext;
     private FB fb;
+    private static String url;
 
-    public SpeakersAdaptor(ArrayList<Speaker> myDataset, Context mContext) {
+    public SpeakersAdaptor(ArrayList<Speaker> myDataset, BaseActivity mContext) {
         this.mDataset = myDataset;
         this.mContext = mContext;
         fb = FB.getInstance();
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -53,7 +58,7 @@ public class SpeakersAdaptor extends RecyclerView.Adapter<SpeakersAdaptor.ViewHo
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final SpeakersAdaptor.ViewHolder holder, int position) {
-        Speaker speaker = mDataset.get(position);
+        final Speaker speaker = mDataset.get(position);
         holder.speakerImage.setImageDrawable(null);
 
         holder.titleTextView.setText(speaker.title);
@@ -64,7 +69,7 @@ public class SpeakersAdaptor extends RecyclerView.Adapter<SpeakersAdaptor.ViewHo
 
         Log.e("URL", speaker.photoUrl);
         if (speaker.photoUrl.startsWith("http")) {
-            String url = speaker.photoUrl;
+            url = speaker.photoUrl;
             Log.e("URL", url);
             Glide.with(mContext)
                     .load(url).diskCacheStrategy(DiskCacheStrategy.ALL).crossFade()
@@ -75,7 +80,7 @@ public class SpeakersAdaptor extends RecyclerView.Adapter<SpeakersAdaptor.ViewHo
                 @Override
                 public void onSuccess(Uri uri) {
 
-                    String url = uri.toString();
+                    url = uri.toString();
                     Log.e("URL", url);
                     Glide.with(mContext)
                             .load(url).diskCacheStrategy(DiskCacheStrategy.ALL).crossFade()
@@ -88,6 +93,14 @@ public class SpeakersAdaptor extends RecyclerView.Adapter<SpeakersAdaptor.ViewHo
                 }
             });
         }
+
+        holder.speakerImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SpeakerActivity.launch(mContext, holder.speakerImage, url, speaker);
+            }
+        });
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

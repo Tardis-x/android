@@ -161,11 +161,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
+                            user =  fb.mAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, "Authentication done with G+.",
                                     Toast.LENGTH_SHORT).show();
-                            User user = new User(acct.getDisplayName(), acct.getPhotoUrl().toString());
-                            user.setEmailWithoutDots(acct.getEmail());
-                            fb.getUserRef().child(user.getEmail()).setValue(user);
+                            User mUser = new User(acct.getDisplayName(), acct.getPhotoUrl().toString());
+                            mUser.setEmailWithoutDots(acct.getEmail());
+                            fb.getUserRef().child(user.getUid()).setValue(mUser);
                             startMainActivity();
                         }
 
