@@ -1,7 +1,6 @@
 package devfest.controller.adaptors;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -20,6 +19,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
+import devfest.controller.BaseActivity;
+import devfest.controller.NewsActivity;
 import devfest.controller.R;
 import devfest.controller.model.News;
 import devfest.controller.utils.FB;
@@ -28,7 +29,7 @@ import devfest.controller.utils.FB;
  * Created by Brusd on 7/17/2016.
  */
 
-public class NewsAdaptor  extends RecyclerView.Adapter<NewsAdaptor.ViewHolder> {
+public class NewsAdaptor extends RecyclerView.Adapter<NewsAdaptor.ViewHolder> {
     private ArrayList<News> mDataset;
     private Context mContext;
     private FB fb;
@@ -42,7 +43,7 @@ public class NewsAdaptor  extends RecyclerView.Adapter<NewsAdaptor.ViewHolder> {
     // Create new views (invoked by the layout manager)
     @Override
     public NewsAdaptor.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                         int viewType) {
+                                                     int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_news, parent, false);
@@ -55,23 +56,23 @@ public class NewsAdaptor  extends RecyclerView.Adapter<NewsAdaptor.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        News news = mDataset.get(position);
+        final News news = mDataset.get(position);
         holder.mNewsTitle.setText(news.getTitle());
         holder.descTextView.setText(news.getBrief());
 
         Log.e("URL", news.getImage());
-        if(news.getImage().startsWith("http")){
+        if (news.getImage().startsWith("http")) {
             String url = news.getImage();
             Log.e("URL", url);
             Glide.with(mContext)
                     .load(url)
                     .into(holder.mMaineNewsImage);
-        }else {
+        } else {
             Log.e("URL", fb.getImageRoot().toString());
-         fb.getImageRoot().child(news.getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            fb.getImageRoot().child(news.getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-
+                    news.setImage(uri.toString());
                     String url = uri.toString();
                     Log.e("URL", url);
                     Glide.with(mContext)
@@ -89,13 +90,13 @@ public class NewsAdaptor  extends RecyclerView.Adapter<NewsAdaptor.ViewHolder> {
         holder.mMaineNewsImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                NewsActivity.launch((BaseActivity) mContext, holder.mMaineNewsImage, news.getImage(), news);
             }
         });
         holder.mNewsTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                NewsActivity.launch((BaseActivity) mContext, holder.mMaineNewsImage, news.getImage(), news);
             }
         });
         holder.mNewsTitle.setBackgroundColor(Color.parseColor(news.getPrimaryColor()));
@@ -125,7 +126,7 @@ public class NewsAdaptor  extends RecyclerView.Adapter<NewsAdaptor.ViewHolder> {
             cardView = (CardView) v.findViewById(R.id.card_view);
             mNewsTitle = (TextView) v.findViewById(R.id.news_title_text_view);
             mMaineNewsImage = (ImageView) v.findViewById(R.id.main_new_image);
-            descTextView =(TextView)v.findViewById(R.id.news_short_text_view);
+            descTextView = (TextView) v.findViewById(R.id.news_short_text_view);
             setIsRecyclable(false);
         }
     }
