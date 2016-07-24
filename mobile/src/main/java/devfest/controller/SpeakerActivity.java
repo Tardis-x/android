@@ -20,6 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import devfest.controller.adaptors.SocialAdaptor;
 import devfest.controller.adaptors.TagAdaptor;
 import devfest.controller.model.Speaker;
+import us.feras.mdv.MarkdownView;
 
 public class SpeakerActivity extends BaseActivity {
 
@@ -28,7 +29,7 @@ public class SpeakerActivity extends BaseActivity {
     private TextView mNameTV;
     private TextView mCountry;
     private TextView mTitleTV;
-    private TextView mBioTV;
+    private MarkdownView mBioTV;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private RecyclerView tagsRV;
     private RecyclerView socialRV;
@@ -62,7 +63,7 @@ public class SpeakerActivity extends BaseActivity {
     private void initView() {
         mCountry = (TextView)findViewById(R.id.company_country_tv);
         mTitleTV =  (TextView)findViewById(R.id.title_speaker_textView);
-        mBioTV = (TextView)findViewById(R.id.bio_speaker_textView);
+        mBioTV = (MarkdownView )findViewById(R.id.bio_speaker_textView);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_tool_bar);
         tagsRV = (RecyclerView)findViewById(R.id.tags_recycler_view);
         socialRV = (RecyclerView)findViewById(R.id.social_recycler_view);
@@ -91,7 +92,7 @@ public class SpeakerActivity extends BaseActivity {
 
         mCountry.setText(mSpeaker.company+", "+ mSpeaker.country);
         mTitleTV.setText(mSpeaker.title);
-        mBioTV.setText(mSpeaker.bio);
+        mBioTV.loadMarkdown(mSpeaker.bio);
         Log.e("Tag", mSpeaker.toString());
     }
 

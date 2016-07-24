@@ -34,10 +34,7 @@
 
                 <ImageView
                     android:id="@+id/image_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/home" />
+                    style="@style/TransitedSpeakerImageView"/>
 
                 <TextView
                     android:id="@+id/company_country_tv"
