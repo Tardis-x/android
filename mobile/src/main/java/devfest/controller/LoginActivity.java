@@ -164,8 +164,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                             user =  fb.mAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, "Authentication done with G+.",
                                     Toast.LENGTH_SHORT).show();
+
                             User mUser = new User(acct.getDisplayName(), acct.getPhotoUrl().toString());
-                            mUser.setEmailWithoutDots(acct.getEmail());
+                            mUser.setUserLevel("user");
                             fb.getUserRef().child(user.getUid()).setValue(mUser);
                             startMainActivity();
                         }

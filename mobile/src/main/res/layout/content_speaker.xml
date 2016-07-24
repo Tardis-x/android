@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_speaker"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="devfest.controller.SpeakerActivity"
+    android:layout_gravity="fill_vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_speaker">
 
-    <TextView
-        android:id="@+id/title_speaker_textView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/title_speaker_textView"
+            style="@style/BlackTitleTextView"
+            android:text="weqrwer" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/tags_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/bio_speaker_textView"
+            style="@style/BlackTextTextView" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/social_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
-</RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
+

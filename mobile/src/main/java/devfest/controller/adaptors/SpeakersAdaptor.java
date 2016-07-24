@@ -79,11 +79,11 @@ public class SpeakersAdaptor extends RecyclerView.Adapter<SpeakersAdaptor.ViewHo
             fb.getImageRoot().child(speaker.photoUrl).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-
+                    speaker.photoUrl = uri.toString();
                     url = uri.toString();
                     Log.e("URL", url);
                     Glide.with(mContext)
-                            .load(url).diskCacheStrategy(DiskCacheStrategy.ALL).crossFade()
+                            .load(speaker.photoUrl).diskCacheStrategy(DiskCacheStrategy.ALL).crossFade()
                             .into(holder.speakerImage);
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -97,7 +97,7 @@ public class SpeakersAdaptor extends RecyclerView.Adapter<SpeakersAdaptor.ViewHo
         holder.speakerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SpeakerActivity.launch(mContext, holder.speakerImage, url, speaker);
+                SpeakerActivity.launch(mContext, holder.speakerImage, speaker.photoUrl, speaker);
             }
         });
 

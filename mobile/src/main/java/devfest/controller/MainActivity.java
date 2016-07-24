@@ -15,10 +15,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import devfest.controller.fragments.NewsFragment;
 import devfest.controller.fragments.ScheduleFragment;
 import devfest.controller.fragments.SpeakersFragment;
+import devfest.controller.model.User;
 import devfest.controller.utils.FB;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +36,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private Toolbar toolbar;
     private FragmentManager fragmentManager;
     private FrameLayout frameLayout;
+
+    private TextView userNameTV;
+    private TextView emailTV;
+    private ImageView avatar;
+    private NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +64,51 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentManager = getSupportFragmentManager();
         addFragment(NewsFragment.newInstance());
 
+
+    }
+
+    private void initUserData() {
+        userNameTV = (TextView) findViewById(R.id.userNameInMenu);
+        fb.getUserRef().child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User mUser = dataSnapshot.getValue(User.class);
+
+//                userNameTV.setText(mUser.getUserName());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        user = fb.mAuth.getCurrentUser();
+        if (user != null) {
+            Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            if (user.isAnonymous()) {
+
+            } else {
+                initUserData();
+            }
+        } else {
+            goToLoginScreen();
+        }
     }
 
     private void addFragment(Fragment newFragment) {
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_holder, newFragment).commit();
     }
@@ -68,12 +116,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onResume() {
         super.onResume();
-        user = fb.mAuth.getCurrentUser();
-        if (user != null) {
-            Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-        } else {
-            goToLoginScreen();
-        }
+
     }
 
     @Override
