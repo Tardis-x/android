@@ -94,6 +94,7 @@ public class NewsFragment extends Fragment {
     private void initList(ArrayList<News> dataSnapshots) {
         // specify an adapter (see also next example)
         NewsAdaptor mAdapter = new NewsAdaptor(dataSnapshots, mContext);
+        mRecyclerView.setItemViewCacheSize(dataSnapshots.size());
         mRecyclerView.setAdapter(mAdapter);
     }
 

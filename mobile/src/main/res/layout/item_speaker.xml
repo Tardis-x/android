@@ -11,9 +11,9 @@
         android:layout_margin="10dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -21,31 +21,19 @@
 
                 <ImageView
                     android:id="@+id/main_speakers_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:scaleType="centerCrop" />
-
+                    style="@style/TransitedSpeakerImageView"/>
 
                 <TextView
                     android:id="@+id/speakers_company_country_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/WhiteSmallTitleTextView"
                     android:layout_alignBottom="@id/main_speakers_image"
-                    android:layout_below="@id/news_title_text_view"
-                    android:padding="10dp"
-                    android:textColor="@android:color/white"
-                    android:text="123123"
-                    android:textSize="15sp" />
+                    android:layout_below="@id/news_title_text_view" />
 
                 <TextView
                     android:id="@+id/speakers_name_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/WhiteTitleTextView"
                     android:layout_above="@id/speakers_company_country_text_view"
-                    android:layout_below="@id/main_new_image"
-                    android:padding="10dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="30sp" />
+                    android:layout_below="@id/main_new_image" />
 
             </RelativeLayout>
 
@@ -56,16 +44,10 @@
                 android:padding="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="25sp" />
-
-
             <TextView
                 android:id="@+id/speakers_bio_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="3"
-                android:padding="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="12sp" />
+                style="@style/BlackTextTextView"
+                android:maxLines="3"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

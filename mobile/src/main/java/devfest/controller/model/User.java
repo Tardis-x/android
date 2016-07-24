@@ -8,14 +8,15 @@ public class User {
 
     public String userName;
     public String email;
-    public String emailWithDots;
     public String imageURL;
+    public String userLevel;
 
 
-    public User (){
+    public User() {
 
     }
-    public User(String userName, String imageURL){
+
+    public User(String userName, String imageURL) {
         this.userName = userName;
         this.imageURL = imageURL;
     }
@@ -39,17 +40,17 @@ public class User {
     public String getEmail() {
         return email;
     }
-    public String getEmailWithDots() {
-        return emailWithDots;
-    }
+
 
     public void setEmail(String email) {
         this.email = email;
     }
-    public void setEmailWithoutDots(String email) {
-        this.emailWithDots = email;
-        String temp = email.replaceAll("\\.", ",");
 
-        this.email = temp;
+    public String getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(String userLevel) {
+        this.userLevel = userLevel;
     }
 }

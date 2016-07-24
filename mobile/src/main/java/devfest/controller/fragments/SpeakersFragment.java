@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import devfest.controller.BaseActivity;
 import devfest.controller.R;
 import devfest.controller.adaptors.NewsAdaptor;
 import devfest.controller.adaptors.SpeakersAdaptor;
@@ -58,7 +59,9 @@ public class SpeakersFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(getContext());
+
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
 
         fb = FB.getInstance();
         getSpeakers();
@@ -94,7 +97,8 @@ public class SpeakersFragment extends Fragment {
 
     private void initList(ArrayList<Speaker> dataSnapshots) {
         // specify an adapter (see also next example)
-        SpeakersAdaptor mAdapter = new SpeakersAdaptor(dataSnapshots, mContext);
+        SpeakersAdaptor mAdapter = new SpeakersAdaptor(dataSnapshots, (BaseActivity) getActivity());
+        mRecyclerView.setItemViewCacheSize(dataSnapshots.size());
         mRecyclerView.setAdapter(mAdapter);
     }
 }

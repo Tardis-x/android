@@ -15,8 +15,8 @@ public class FB {
     private static FB fb;
     public FirebaseAuth mAuth;
     private StorageReference storageRef;
-    public String BASE_URL = "prod/";
-//    public String BASE_URL = "team-dev/";
+//    public String BASE_URL = "prod/";
+    public String BASE_URL = "dev/";
 
 
     public FB() {

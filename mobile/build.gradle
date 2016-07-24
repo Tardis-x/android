@@ -7,9 +7,9 @@ android {
 
     productFlavors {
         DevFestUA2016 {
-            applicationId = "devfest2016.gdg"
+            applicationId = "ua.org.gdg.devfest"
             versionCode 1
-            versionName "0.01"
+            versionName "0.03"
 
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
@@ -21,8 +21,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "devfest2016.gdg"
-        minSdkVersion 19
+        applicationId "ua.org.gdg.devfest"
+        minSdkVersion 21
         targetSdkVersion 24
 
     }
@@ -84,8 +84,12 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:9.2.1'
     compile 'com.google.firebase:firebase-database:9.2.1'
     compile 'com.google.firebase:firebase-storage:9.2.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
+    compile 'us.feras.mdv:markdownview:1.1.0'
     testCompile 'junit:junit:4.12'
 }
+
+
 
 
 
