@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
 
 
     productFlavors {
         DevFestUA2016 {
             applicationId = "ua.org.gdg.devfest"
-            versionCode 1
-            versionName "0.03"
+            versionCode VERSION_CODE as int
+            versionName VERSION_NAME
 
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
@@ -22,8 +22,8 @@ android {
 
     defaultConfig {
         applicationId "ua.org.gdg.devfest"
-        minSdkVersion 21
-        targetSdkVersion 24
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
 
     }
 
@@ -73,10 +73,10 @@ dependencies {
 
 
 
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:design:24.0.0'
-    compile 'com.android.support:cardview-v7:24.0.0'
-    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
+    compile "com.android.support:design:${SUPPORT_LIB_VERSION}"
+    compile "com.android.support:cardview-v7:${SUPPORT_LIB_VERSION}"
+    compile "com.android.support:recyclerview-v7:${SUPPORT_LIB_VERSION}"
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.google.android.gms:play-services-auth:9.2.1'
     compile 'com.google.firebase:firebase-core:9.2.1'
