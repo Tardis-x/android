@@ -5,16 +5,16 @@
 
         <item
             android:id="@+id/nav_schedule"
-            android:icon="@android:drawable/ic_secure"
+            android:icon="@drawable/ic_schedule"
             android:title="@string/schedule_string" />
         <item
-            android:id="@+id/blog_category"
-            android:icon="@android:drawable/ic_dialog_info"
+            android:id="@+id/nav_blog"
+            android:icon="@drawable/ic_blog"
             android:title="@string/blog_string" />
 
         <item
             android:id="@+id/nav_speakers"
-            android:icon="@android:drawable/ic_dialog_dialer"
+            android:icon="@drawable/ic_speakers"
             android:title="@string/speakers_string" />
 
     </group>
@@ -23,15 +23,15 @@
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@android:drawable/ic_menu_share"
+                android:icon="@drawable/ic_share"
                 android:title="@string/share_string" />
             <item
                 android:id="@+id/nav_invite"
-                android:icon="@android:drawable/ic_menu_manage"
+                android:icon="@drawable/ic_invite"
                 android:title="@string/invite_string" />
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@android:drawable/ic_lock_lock"
+                android:icon="@drawable/ic_logout"
                 android:title="@string/logout" />
         </menu>
     </item>

@@ -122,26 +122,30 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_schedule) {
-            addFragment(ScheduleFragment.newInstance());
-        } else if (id == R.id.blog_category) {
-            addFragment(NewsFragment.newInstance());
-        } else if (id == R.id.nav_speakers) {
-            addFragment(SpeakersFragment.newInstance());
-        } else if (id == R.id.nav_share) {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=devfest2016.gdg");
-            startActivity(Intent.createChooser(intent, "Share with"));
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_logout) {
-            fb.mAuth.signOut();
-            goToLoginScreen();
+        switch (item.getItemId()) {
+            case R.id.nav_schedule:
+                addFragment(ScheduleFragment.newInstance());
+                break;
+            case R.id.nav_blog:
+                addFragment(NewsFragment.newInstance());
+                break;
+            case R.id.nav_speakers:
+                addFragment(SpeakersFragment.newInstance());
+                break;
+            case R.id.nav_share:
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=devfest2016.gdg");
+                startActivity(Intent.createChooser(intent, "Share with"));
+                break;
+            case R.id.nav_invite:
+                // todo implement invite
+                break;
+            case R.id.nav_logout:
+                fb.mAuth.signOut();
+                goToLoginScreen();
+                break;
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
