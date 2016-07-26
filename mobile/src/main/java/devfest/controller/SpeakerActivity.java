@@ -38,17 +38,7 @@ public class SpeakerActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speaker);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher, null));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              finish();
-            }
-        });
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setHomeButtonEnabled(true);
+        initToolbar();
 
         ImageView image = (ImageView) findViewById(R.id.image_view);
         ViewCompat.setTransitionName(image, EXTRA_IMAGE);
@@ -58,6 +48,13 @@ public class SpeakerActivity extends BaseActivity {
         initView();
         Log.e("TAGS  ____", mSpeaker.tags.size()+"");
 
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initView() {

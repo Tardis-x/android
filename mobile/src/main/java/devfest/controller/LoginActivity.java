@@ -3,7 +3,6 @@ package devfest.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -165,9 +164,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                             Toast.makeText(LoginActivity.this, "Authentication done with G+.",
                                     Toast.LENGTH_SHORT).show();
 
-                            User mUser = new User(acct.getDisplayName(), acct.getPhotoUrl().toString());
-                            mUser.setUserLevel("user");
-                            fb.getUserRef().child(user.getUid()).setValue(mUser);
+                            User user = new User(acct.getDisplayName(), acct.getPhotoUrl().toString());
+                            user.setEmail(acct.getEmail());
+                            user.setUserLevel("user");
+                            fb.getUserRef().child(LoginActivity.this.user.getUid()).setValue(user);
                             startMainActivity();
                         }
 

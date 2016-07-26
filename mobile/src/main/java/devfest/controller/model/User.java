@@ -53,4 +53,14 @@ public class User {
     public void setUserLevel(String userLevel) {
         this.userLevel = userLevel;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", userLevel='" + userLevel + '\'' +
+                '}';
+    }
 }
