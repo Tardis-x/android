@@ -1,30 +1,27 @@
 package devfest.controller;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import devfest.controller.adaptors.SocialAdaptor;
-import devfest.controller.adaptors.TagAdaptor;
+import devfest.controller.adapters.SocialAdapter;
+import devfest.controller.adapters.TagAdapter;
 import devfest.controller.model.Speaker;
 import us.feras.mdv.MarkdownView;
 
-public class SpeakerActivity extends BaseActivity {
+public class SpeakerDetailActivity extends BaseActivity {
 
     public static final String EXTRA_IMAGE = "DetailActivity:image";
+    public static final String ARG_SPEAKER = "ARG_SPEAKER";
     public static Speaker mSpeaker;
     private TextView mNameTV;
     private TextView mCountry;
@@ -42,8 +39,9 @@ public class SpeakerActivity extends BaseActivity {
 
         ImageView image = (ImageView) findViewById(R.id.image_view);
         ViewCompat.setTransitionName(image, EXTRA_IMAGE);
+        mSpeaker = getIntent().getParcelableExtra(ARG_SPEAKER);
         Glide.with(this)
-                .load(getIntent().getStringExtra(EXTRA_IMAGE)).diskCacheStrategy(DiskCacheStrategy.ALL).crossFade()
+                .load(mSpeaker.photoUrl).diskCacheStrategy(DiskCacheStrategy.ALL).crossFade()
                 .into(image);
         initView();
         Log.e("TAGS  ____", mSpeaker.tags.size()+"");
@@ -75,32 +73,21 @@ public class SpeakerActivity extends BaseActivity {
 //        collapsingToolbarLayout.setStatusBarScrimColor(palette.getDarkMutedColor(primaryDark));
 
 
-        SocialAdaptor socialAdaptor =  new SocialAdaptor( mSpeaker.socials,this);
+        SocialAdapter socialAdapter =  new SocialAdapter( mSpeaker.socials,this);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         socialRV.setLayoutManager(layoutManager);
-        socialRV.setAdapter(socialAdaptor);
+        socialRV.setAdapter(socialAdapter);
 
-        TagAdaptor tagAdaptor =  new TagAdaptor( mSpeaker.tags ,this);
+        TagAdapter tagAdapter =  new TagAdapter( mSpeaker.tags ,this);
         LinearLayoutManager layoutTagManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         tagsRV.setLayoutManager(layoutTagManager);
-        tagsRV.setAdapter(tagAdaptor);
+        tagsRV.setAdapter(tagAdapter);
 
         mCountry.setText(mSpeaker.company+", "+ mSpeaker.country);
         mTitleTV.setText(mSpeaker.title);
         mBioTV.loadMarkdown(mSpeaker.bio);
         Log.e("Tag", mSpeaker.toString());
-    }
-
-
-    public static void launch(BaseActivity activity, View transitionView, String url, Speaker speaker) {
-        ActivityOptionsCompat options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        activity, transitionView, EXTRA_IMAGE);
-        Intent intent = new Intent(activity, SpeakerActivity.class);
-        intent.putExtra(EXTRA_IMAGE, url);
-        mSpeaker = speaker;
-        ActivityCompat.startActivity(activity, intent, options.toBundle());
     }
 }

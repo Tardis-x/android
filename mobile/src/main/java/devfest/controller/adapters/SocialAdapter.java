@@ -1,4 +1,4 @@
-package devfest.controller.adaptors;
+package devfest.controller.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,12 +19,12 @@ import devfest.controller.utils.FB;
  * Created by Brusd on 7/24/2016.
  */
 
-public class SocialAdaptor extends RecyclerView.Adapter<SocialAdaptor.ViewHolder> {
+public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder> {
     private ArrayList<Social> mDataset;
     private Context mContext;
     private FB fb;
 
-    public SocialAdaptor(ArrayList<Social> myDataset, Context mContext) {
+    public SocialAdapter(ArrayList<Social> myDataset, Context mContext) {
         this.mDataset = myDataset;
         this.mContext = mContext;
         fb = FB.getInstance();
@@ -32,20 +32,20 @@ public class SocialAdaptor extends RecyclerView.Adapter<SocialAdaptor.ViewHolder
 
     // Create new views (invoked by the layout manager)
     @Override
-    public SocialAdaptor.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public SocialAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                        int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_social, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
-        SocialAdaptor.ViewHolder vh = new SocialAdaptor.ViewHolder(v);
+        SocialAdapter.ViewHolder vh = new SocialAdapter.ViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final SocialAdaptor.ViewHolder holder, int position) {
+    public void onBindViewHolder(final SocialAdapter.ViewHolder holder, int position) {
         final Social social = mDataset.get(position);
         holder.mSocialImage.setText(social.getName());
         holder.mSocialImage.setOnClickListener(new View.OnClickListener() {

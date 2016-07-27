@@ -1,7 +1,5 @@
-package devfest.controller.adaptors;
+package devfest.controller.adapters;
 
-import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 
 import devfest.controller.BaseActivity;
 import devfest.controller.R;
-import devfest.controller.SpeakerActivity;
 import devfest.controller.model.Speaker;
 import devfest.controller.utils.FB;
 
@@ -29,36 +26,40 @@ import devfest.controller.utils.FB;
  * Created by Brusd on 7/17/2016.
  */
 
-public class SpeakersAdaptor extends RecyclerView.Adapter<SpeakersAdaptor.ViewHolder> {
-    private ArrayList<Speaker> mDataset;
+public class SpeakersAdapter extends RecyclerView.Adapter<SpeakersAdapter.ViewHolder> {
+    private final OnSpeakerClickListener mOnSpeakerClickListener;
+    private ArrayList<Speaker> mSpeakerList;
     private BaseActivity mContext;
     private FB fb;
     private static String url;
 
-    public SpeakersAdaptor(ArrayList<Speaker> myDataset, BaseActivity mContext) {
-        this.mDataset = myDataset;
-        this.mContext = mContext;
-        fb = FB.getInstance();
+    public interface OnSpeakerClickListener {
+        void onSpeakerClick(ImageView speakerImage, Speaker speaker, int position);
+    }
 
+    public SpeakersAdapter(ArrayList<Speaker> data, BaseActivity context, OnSpeakerClickListener listener) {
+        mSpeakerList = data;
+        mContext = context;
+        mOnSpeakerClickListener = listener;
+        fb = FB.getInstance();
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public SpeakersAdaptor.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public SpeakersAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_speaker, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
-        SpeakersAdaptor.ViewHolder vh = new SpeakersAdaptor.ViewHolder(v);
-        return vh;
+        return new SpeakersAdapter.ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final SpeakersAdaptor.ViewHolder holder, int position) {
-        final Speaker speaker = mDataset.get(position);
+    public void onBindViewHolder(final SpeakersAdapter.ViewHolder holder, final int position) {
+        final Speaker speaker = mSpeakerList.get(position);
         holder.speakerImage.setImageDrawable(null);
 
         holder.titleTextView.setText(speaker.title);
@@ -97,7 +98,9 @@ public class SpeakersAdaptor extends RecyclerView.Adapter<SpeakersAdaptor.ViewHo
         holder.speakerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SpeakerActivity.launch(mContext, holder.speakerImage, speaker.photoUrl, speaker);
+                if (mOnSpeakerClickListener != null) {
+                    mOnSpeakerClickListener.onSpeakerClick(holder.speakerImage, speaker, position);
+                }
             }
         });
 
@@ -106,7 +109,7 @@ public class SpeakersAdaptor extends RecyclerView.Adapter<SpeakersAdaptor.ViewHo
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return mSpeakerList != null ? mSpeakerList.size() : 0;
     }
 
     // Provide a reference to the views for each data item

@@ -85,4 +85,13 @@ public class Speaker implements Parcelable {
             return new Speaker[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "Speaker{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }

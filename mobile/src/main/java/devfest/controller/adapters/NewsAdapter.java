@@ -1,4 +1,4 @@
-package devfest.controller.adaptors;
+package devfest.controller.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -29,12 +29,12 @@ import devfest.controller.utils.FB;
  * Created by Brusd on 7/17/2016.
  */
 
-public class NewsAdaptor extends RecyclerView.Adapter<NewsAdaptor.ViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private ArrayList<News> mDataset;
     private Context mContext;
     private FB fb;
 
-    public NewsAdaptor(ArrayList<News> myDataset, Context mContext) {
+    public NewsAdapter(ArrayList<News> myDataset, Context mContext) {
         this.mDataset = myDataset;
         this.mContext = mContext;
         fb = FB.getInstance();
@@ -42,7 +42,7 @@ public class NewsAdaptor extends RecyclerView.Adapter<NewsAdaptor.ViewHolder> {
 
     // Create new views (invoked by the layout manager)
     @Override
-    public NewsAdaptor.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public NewsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
