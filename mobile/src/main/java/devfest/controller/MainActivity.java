@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -30,11 +32,14 @@ import com.google.firebase.database.ValueEventListener;
 import devfest.controller.fragments.NewsFragment;
 import devfest.controller.fragments.ScheduleFragment;
 import devfest.controller.fragments.SpeakersFragment;
+import devfest.controller.model.Speaker;
 import devfest.controller.model.User;
 import devfest.controller.utils.FB;
 import devfest.controller.utils.Utils;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements
+        NavigationView.OnNavigationItemSelectedListener,
+        SpeakersFragment.SpeakerFragmentInteractionListener{
     private static final String TAG = MainActivity.class.getName();
 
     private FB fb;
@@ -56,7 +61,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Obtain the FirebaseAnalytics instance.
         fb = FB.getInstance();
         user = fb.mAuth.getCurrentUser();
-        Log.e("WHF?", "MainActivity onResume");
+        Log.d(TAG, "onCreate: ");
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appBar_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -133,6 +138,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void showFragment(Fragment newFragment) {
+        Log.d(TAG, "showFragment: " + newFragment);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_holder, newFragment).commit();
     }
@@ -173,5 +179,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onSpeakerSelected(ImageView speakerImage, Speaker speaker, int position) {
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        MainActivity.this, speakerImage, SpeakerDetailActivity.EXTRA_IMAGE);
+        Intent intent = new Intent(MainActivity.this, SpeakerDetailActivity.class);
+        intent.putExtra(SpeakerDetailActivity.ARG_SPEAKER, speaker);
+        ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
     }
 }

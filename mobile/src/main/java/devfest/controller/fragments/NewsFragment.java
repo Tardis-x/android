@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import devfest.controller.R;
-import devfest.controller.adaptors.NewsAdaptor;
+import devfest.controller.adapters.NewsAdapter;
 import devfest.controller.model.News;
 import devfest.controller.utils.FB;
 
@@ -93,7 +93,7 @@ public class NewsFragment extends Fragment {
 
     private void initList(ArrayList<News> dataSnapshots) {
         // specify an adapter (see also next example)
-        NewsAdaptor mAdapter = new NewsAdaptor(dataSnapshots, mContext);
+        NewsAdapter mAdapter = new NewsAdapter(dataSnapshots, mContext);
         mRecyclerView.setItemViewCacheSize(dataSnapshots.size());
         mRecyclerView.setAdapter(mAdapter);
     }

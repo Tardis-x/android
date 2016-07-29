@@ -32,7 +32,7 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".SpeakerActivity"
+            android:name=".SpeakerDetailActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
         <activity

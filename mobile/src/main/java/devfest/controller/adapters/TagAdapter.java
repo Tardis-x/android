@@ -1,4 +1,4 @@
-package devfest.controller.adaptors;
+package devfest.controller.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,19 +10,18 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import devfest.controller.R;
-
 import devfest.controller.utils.FB;
 
 /**
  * Created by Brusd on 7/24/2016.
  */
 
-public class TagAdaptor extends RecyclerView.Adapter<TagAdaptor.ViewHolder> {
+public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
     private ArrayList<String> mDataset;
     private Context mContext;
     private FB fb;
 
-    public TagAdaptor(ArrayList<String> myDataset, Context mContext) {
+    public TagAdapter(ArrayList<String> myDataset, Context mContext) {
         this.mDataset = myDataset;
         this.mContext = mContext;
         fb = FB.getInstance();
@@ -30,20 +29,20 @@ public class TagAdaptor extends RecyclerView.Adapter<TagAdaptor.ViewHolder> {
 
     // Create new views (invoked by the layout manager)
     @Override
-    public TagAdaptor.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public TagAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                     int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_social, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
-        TagAdaptor.ViewHolder vh = new TagAdaptor.ViewHolder(v);
+        TagAdapter.ViewHolder vh = new TagAdapter.ViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final TagAdaptor.ViewHolder holder, int position) {
+    public void onBindViewHolder(final TagAdapter.ViewHolder holder, int position) {
         final String tag = mDataset.get(position);
         holder.mSocialImage.setText(tag);
 

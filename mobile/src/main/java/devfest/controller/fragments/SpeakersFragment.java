@@ -1,5 +1,6 @@
 package devfest.controller.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,9 +21,7 @@ import java.util.ArrayList;
 
 import devfest.controller.BaseActivity;
 import devfest.controller.R;
-import devfest.controller.adaptors.NewsAdaptor;
-import devfest.controller.adaptors.SpeakersAdaptor;
-import devfest.controller.model.News;
+import devfest.controller.adapters.SpeakersAdapter;
 import devfest.controller.model.Speaker;
 import devfest.controller.utils.FB;
 
@@ -33,12 +33,26 @@ import devfest.controller.utils.FB;
 public class SpeakersFragment extends Fragment {
 
     private static final String TAG = NewsFragment.class.getName();
+    private SpeakerFragmentInteractionListener mCallBack;
+
+    public interface SpeakerFragmentInteractionListener {
+        void onSpeakerSelected(ImageView speakerImage, Speaker speaker, int position);
+    }
+
     private View v;
     private Context mContext;
     private ArrayList<Speaker> speakers;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private FB fb;
+
+    private SpeakersAdapter.OnSpeakerClickListener mSpeakersItemClickListener = new SpeakersAdapter.OnSpeakerClickListener() {
+        @Override
+        public void onSpeakerClick(ImageView speakerImage, Speaker speaker, int position) {
+            Log.d(TAG, "onClick: pos " + position + " speaker : " + speaker);
+            mCallBack.onSpeakerSelected(speakerImage, speaker, position);
+        }
+    };
 
 
     public static SpeakersFragment newInstance() {
@@ -70,6 +84,17 @@ public class SpeakersFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mCallBack = ((SpeakerFragmentInteractionListener) getActivity());
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement SpeakerFragmentInteractionListener");
+        }
+    }
+
     public void getSpeakers() {
         DatabaseReference myRef = fb.getSpeakersRef();
         myRef.addListenerForSingleValueEvent(
@@ -97,7 +122,7 @@ public class SpeakersFragment extends Fragment {
 
     private void initList(ArrayList<Speaker> dataSnapshots) {
         // specify an adapter (see also next example)
-        SpeakersAdaptor mAdapter = new SpeakersAdaptor(dataSnapshots, (BaseActivity) getActivity());
+        SpeakersAdapter mAdapter = new SpeakersAdapter(dataSnapshots, (BaseActivity) getActivity(), mSpeakersItemClickListener);
         mRecyclerView.setItemViewCacheSize(dataSnapshots.size());
         mRecyclerView.setAdapter(mAdapter);
     }
